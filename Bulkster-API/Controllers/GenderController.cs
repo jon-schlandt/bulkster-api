@@ -21,9 +21,16 @@ public class GenderController : ControllerBase
 
     [Route("options")]
     [HttpGet]
-    public async Task<ActionResult> GetGenderOptions()
+    public async Task<ActionResult> GetGenderOptionsAsync()
     {
-        List<Gender> options = await _clientOptionsService.GetGenderOptions();
-        return Ok(options.Select(o => o.ToControllerModel()));
+        try
+        {
+            List<Gender> options = await _clientOptionsService.GetGenderOptionsAsync();
+            return Ok(options.Select(o => o.ToControllerModel()));
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, new { Message = "An error occurred while getting gender options." });
+        }
     }
 }

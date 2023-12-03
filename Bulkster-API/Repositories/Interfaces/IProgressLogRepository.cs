@@ -6,8 +6,8 @@ namespace Bulkster_API.Repositories.Interfaces;
 
 public interface IProgressLogRepository
 {
-    public Task<int> InsertProgressLog(ProgressLogEntity entity);
-    public Task<ProgressLog?> GetProgressLogForToday(Guid clientId);
+    public Task<int> InsertProgressLogAsync(ProgressLogEntity entity);
+    public Task<ProgressLog?> GetProgressLogForTodayAsync(Guid clientId);
 
-    public Task<int> UpdateProgressLog(ProgressLogEntity entity);
+    public Task<int> UpdateProgressLogAsync(ProgressLogEntity entity);
 }

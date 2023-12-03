@@ -1,4 +1,3 @@
-using Bulkster_API.Data;
 using Bulkster_API.Models.Service;
 using Bulkster_API.Repositories.Interfaces;
 using Bulkster_API.Services.Interfaces;
@@ -8,34 +7,31 @@ namespace Bulkster_API.Services.Implementations;
 public class ProgressService : IProgressService
 {
     private readonly IProgressLogRepository _progressLogRepository;
-    private readonly IBulksterDbContext _dbContext;
 
-    public ProgressService(IProgressLogRepository progressLogRepository, IBulksterDbContext dbContext)
+    public ProgressService(IProgressLogRepository progressLogRepository)
     {
         _progressLogRepository = progressLogRepository;
-        _dbContext = dbContext;
     }
     
-    public async Task<ProgressLog?> GetProgressForToday(Guid clientId)
+    public async Task<ProgressLog?> GetProgressForTodayAsync(Guid clientId)
     {
-        return await _progressLogRepository.GetProgressLogForToday(clientId);
+        return await _progressLogRepository.GetProgressLogForTodayAsync(clientId);
     }
 
-    public async Task<Guid> LogProgressForToday(ProgressLog progressLog)
+    public async Task<Guid> LogProgressForTodayAsync(ProgressLog progressLog)
     {
-        ProgressLog? existingLog = await _progressLogRepository.GetProgressLogForToday(progressLog.ClientId);
+        ProgressLog? existingLog = await _progressLogRepository.GetProgressLogForTodayAsync(progressLog.ClientId);
         if (existingLog != null)
         {
             progressLog.Id = existingLog.Id;
-            _dbContext.ProgressLog.Update(progressLog.ToRepositoryModel());
+            await _progressLogRepository.UpdateProgressLogAsync(progressLog.ToEntityModel());
         }
         else
         {
             progressLog.Id = Guid.NewGuid();
-            _dbContext.ProgressLog.Add(progressLog.ToRepositoryModel());
+            await _progressLogRepository.InsertProgressLogAsync(progressLog.ToEntityModel());
         }
         
-        await _dbContext.SaveChangesAsync();
         return progressLog.Id;
     }
 }

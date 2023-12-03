@@ -5,7 +5,7 @@ namespace Bulkster_API.Services.Interfaces;
 
 public interface IClientOptionsService
 {
-    public Task<List<ActivityLevel>> GetActivityLevelOptions();
+    public Task<List<ActivityLevel>> GetActivityLevelOptionsAsync();
     
-    public Task<List<Gender>> GetGenderOptions();
+    public Task<List<Gender>> GetGenderOptionsAsync();
 }

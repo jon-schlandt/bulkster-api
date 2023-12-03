@@ -25,7 +25,7 @@ public class ProgressLog
         };
     }
 
-    public ProgressLogEntity ToRepositoryModel()
+    public ProgressLogEntity ToEntityModel()
     {
         return new ProgressLogEntity
         {

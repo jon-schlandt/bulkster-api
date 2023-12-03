@@ -34,4 +34,14 @@ public class ClientRepository : IClientRepository
     }
     
     #endregion
+    
+    #region Update
+
+    public async Task<int> UpdateClientAsync(ClientEntity entity)
+    {
+        _dbContext.Client.Update(entity);
+        return await _dbContext.SaveChangesAsync();
+    }
+    
+    #endregion
 }

@@ -17,7 +17,7 @@ public class ProgressLogRepository : IProgressLogRepository
 
     #region Create
     
-    public async Task<int> InsertProgressLog(ProgressLogEntity entity)
+    public async Task<int> InsertProgressLogAsync(ProgressLogEntity entity)
     {
         _dbContext.ProgressLog.Add(entity);
         return await _dbContext.SaveChangesAsync();
@@ -27,7 +27,7 @@ public class ProgressLogRepository : IProgressLogRepository
     
     #region Read
     
-    public async Task<ProgressLog?> GetProgressLogForToday(Guid clientId)
+    public async Task<ProgressLog?> GetProgressLogForTodayAsync(Guid clientId)
     {
         ProgressLogEntity? entity = await _dbContext.ProgressLog.FirstOrDefaultAsync(p =>
             p.ClientId == clientId 
@@ -40,7 +40,7 @@ public class ProgressLogRepository : IProgressLogRepository
     
     #region Update
 
-    public async Task<int> UpdateProgressLog(ProgressLogEntity entity)
+    public async Task<int> UpdateProgressLogAsync(ProgressLogEntity entity)
     {
         _dbContext.ProgressLog.Update(entity);
         return await _dbContext.SaveChangesAsync();

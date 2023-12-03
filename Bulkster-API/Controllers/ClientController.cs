@@ -41,7 +41,7 @@ public class ClientController : ControllerBase
         }
         catch (Exception)
         {
-            return StatusCode(500, new { Message = "An error occured while while initializing client." });
+            return StatusCode(500, new { Message = "An error occured while initializing client." });
         }
     }
 

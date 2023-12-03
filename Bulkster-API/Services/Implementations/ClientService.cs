@@ -1,4 +1,3 @@
-using Bulkster_API.Data;
 using Bulkster_API.Models.Service;
 using Bulkster_API.Repositories.Interfaces;
 using Bulkster_API.Services.Interfaces;
@@ -9,17 +8,14 @@ public class ClientService : IClientService
 {
     private readonly IClientRepository _clientRepository;
     private readonly ISessionRepository _sessionRepository;
-    private readonly IBulksterDbContext _dbContext;
     
     public ClientService(
         IClientRepository clientRepository,
-        ISessionRepository sessionRepository,
-        IBulksterDbContext dbContext
+        ISessionRepository sessionRepository
     )
     {
         _clientRepository = clientRepository;
         _sessionRepository = sessionRepository;
-        _dbContext = dbContext;
     }
     
     public async Task<Guid> InitializeClientAsync(Client client)
@@ -46,9 +42,7 @@ public class ClientService : IClientService
 
     public async Task<Guid> UpdateClientAsync(Client client)
     {
-        _dbContext.Client.Update(client.ToEntityModel());
-        await _dbContext.SaveChangesAsync();
-        
+        await _clientRepository.UpdateClientAsync(client.ToEntityModel());
         return client.Id;
     }
 }

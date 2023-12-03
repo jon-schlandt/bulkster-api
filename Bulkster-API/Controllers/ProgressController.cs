@@ -23,7 +23,7 @@ public class ProgressController : ControllerBase
     
     [Route("today")]
     [HttpGet]
-    public async Task<IActionResult> GetProgressForToday([Required] Guid clientId)
+    public async Task<IActionResult> GetProgressForTodayAsync([Required] Guid clientId)
     {
         try
         {
@@ -33,7 +33,7 @@ public class ProgressController : ControllerBase
                 return NotFound(new { Message = $"Client with Id '{clientId}' could not be found." });
             }
 
-            ProgressLog? progressForToday = await _progressService.GetProgressForToday(clientId);
+            ProgressLog? progressForToday = await _progressService.GetProgressForTodayAsync(clientId);
             if (progressForToday == null)
             {
                 return NotFound(new { Message = $"Client does not have progress logged for today." });
@@ -49,7 +49,7 @@ public class ProgressController : ControllerBase
 
     [Route("today")]
     [HttpPut]
-    public async Task<IActionResult> LogProgressForToday([Required][FromBody] LogProgressRequest request)
+    public async Task<IActionResult> LogProgressForTodayAsync([Required][FromBody] LogProgressRequest request)
     {
         try
         {
@@ -59,7 +59,7 @@ public class ProgressController : ControllerBase
                 return NotFound(new { Message = $"Client with Id '{request.ClientId}' could not be found." });
             }
 
-            Guid progressLogId = await _progressService.LogProgressForToday(request.ToServiceModel());
+            Guid progressLogId = await _progressService.LogProgressForTodayAsync(request.ToServiceModel());
             return Ok(new LogProgressResponse
             {
                 ProgressLogId = progressLogId

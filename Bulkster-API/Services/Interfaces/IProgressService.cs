@@ -5,7 +5,7 @@ namespace Bulkster_API.Services.Interfaces;
 
 public interface IProgressService
 {
-    public Task<ProgressLog?> GetProgressForToday(Guid clientId);
+    public Task<ProgressLog?> GetProgressForTodayAsync(Guid clientId);
 
-    public Task<Guid> LogProgressForToday(ProgressLog progressLog);
+    public Task<Guid> LogProgressForTodayAsync(ProgressLog progressLog);
 }

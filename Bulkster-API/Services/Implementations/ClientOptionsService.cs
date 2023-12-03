@@ -22,12 +22,12 @@ public class ClientOptionsService : IClientOptionsService
         _dbContext = dbContext;
     }
     
-    public async Task<List<ActivityLevel>> GetActivityLevelOptions()
+    public async Task<List<ActivityLevel>> GetActivityLevelOptionsAsync()
     {
         return (await _activityRepository.GetActivityLevelsAsync()).ToList();
     }
 
-    public async Task<List<Gender>> GetGenderOptions()
+    public async Task<List<Gender>> GetGenderOptionsAsync()
     {
         return (await _genderRepository.GetGendersAsync()).ToList();
     }

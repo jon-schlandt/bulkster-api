@@ -19,9 +19,16 @@ public class ActivityLevelController : ControllerBase
 
     [Route("options")]
     [HttpGet]
-    public async Task<ActionResult> GetActivityLevelOptions()
+    public async Task<ActionResult> GetActivityLevelOptionsAsync()
     {
-        List<ActivityLevel> options = await _clientOptionsService.GetActivityLevelOptions();
-        return Ok(options.Select(o => o.ToControllerModel()));
+        try
+        {
+            List<ActivityLevel> options = await _clientOptionsService.GetActivityLevelOptionsAsync();
+            return Ok(options.Select(o => o.ToControllerModel()));
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, new { Message = "An error occurred while getting activity level options." });
+        }
     }
 }
