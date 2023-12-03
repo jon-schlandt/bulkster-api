@@ -1,4 +1,5 @@
 using Bulkster_API.Models.Service;
+using Bulkster_API.Security;
 using Bulkster_API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,6 +7,7 @@ namespace Bulkster_API.Controllers;
 
 [Route("activity-level")]
 [ApiController]
+[RequireAppKey]
 public class ActivityLevelController : ControllerBase
 {
     private readonly IClientOptionsService _clientOptionsService;
