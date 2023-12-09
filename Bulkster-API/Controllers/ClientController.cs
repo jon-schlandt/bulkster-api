@@ -9,7 +9,7 @@ namespace Bulkster_API.Controllers;
 
 [Route("client")]
 [ApiController]
-[RequireAppKey]
+[RequireApiKey]
 public class ClientController : ControllerBase
 {
     private readonly IClientService _clientService;

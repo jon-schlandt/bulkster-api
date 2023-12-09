@@ -8,7 +8,7 @@ namespace Bulkster_API.Controllers;
 
 [Route("gender")]
 [ApiController]
-[RequireAppKey]
+[RequireApiKey]
 public class GenderController : ControllerBase
 {
     private readonly IClientOptionsService _clientOptionsService;

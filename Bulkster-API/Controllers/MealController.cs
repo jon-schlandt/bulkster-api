@@ -9,7 +9,7 @@ namespace Bulkster_API.Controllers;
 
 [Route("meal")]
 [ApiController]
-[RequireAppKey]
+[RequireApiKey]
 public class MealController : ControllerBase
 {
     private readonly IClientService _clientService;

@@ -9,7 +9,7 @@ namespace Bulkster_API.Controllers;
 
 [Route("progress")]
 [ApiController]
-[RequireAppKey]
+[RequireApiKey]
 public class ProgressController : ControllerBase
 {
     private readonly IClientService _clientService;

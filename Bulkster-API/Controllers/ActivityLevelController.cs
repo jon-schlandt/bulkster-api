@@ -8,7 +8,7 @@ namespace Bulkster_API.Controllers;
 
 [Route("activity-level")]
 [ApiController]
-[RequireAppKey]
+[RequireApiKey]
 public class ActivityLevelController : ControllerBase
 {
     private readonly IClientOptionsService _clientOptionsService;
