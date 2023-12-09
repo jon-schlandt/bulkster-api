@@ -27,7 +27,6 @@ public class MealController : ControllerBase
         _logger = logger;
     }
     
-    [Route("log")]
     [HttpPost]
     public async Task<ActionResult<LogMealResponse>> LogMealAsync([FromBody] LogMealRequest request)
     {

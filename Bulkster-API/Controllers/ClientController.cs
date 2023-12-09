@@ -55,8 +55,7 @@ public class ClientController : ControllerBase
             return StatusCode(500, new { Message = "An error occured while initializing client." });
         }
     }
-
-    [Route("login")]
+    
     [HttpGet]
     public async Task<ActionResult<ClientLoginResponse>> LoginAsync([FromBody] ClientLoginRequest request)
     {
