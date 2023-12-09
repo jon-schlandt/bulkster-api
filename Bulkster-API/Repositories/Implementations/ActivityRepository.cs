@@ -18,6 +18,6 @@ public class ActivityRepository : IActivityRepository
     public async Task<IEnumerable<ActivityLevel>> GetActivityLevelsAsync()
     {
         List<ActivityLevelEntity> entities = await _dbContext.ActivityLevel.ToListAsync();
-        return entities.Select(e => e.ToServiceModel());
+        return entities.Select(e => new ActivityLevel(e));
     }
 }

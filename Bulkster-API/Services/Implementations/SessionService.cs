@@ -18,19 +18,16 @@ public class SessionService : ISessionService
         Session? session = await _sessionRepository.GetSessionByClientIdAsync(clientId);
         if (session == null)
         {
-            session = new Session
-            {
-                Id = Guid.NewGuid(),
-                ClientId = clientId,
-                LastSessionDate = DateTime.UtcNow
-            };
-
-            return await _sessionRepository.InsertSessionAsync(session.ToEntityModel());
+            session = new Session(
+                id: Guid.NewGuid(), 
+                clientId: clientId, 
+                lastSessionDate: DateTime.UtcNow
+            );
+            
+            return await _sessionRepository.InsertSessionAsync(session);
         }
-        else
-        {
-            session.LastSessionDate = DateTime.UtcNow;
-            return await _sessionRepository.UpdateSessionAsync(session.ToEntityModel());
-        }
+        
+        session.LastSessionDate = DateTime.UtcNow;
+        return await _sessionRepository.UpdateSessionAsync(session);
     }
 }

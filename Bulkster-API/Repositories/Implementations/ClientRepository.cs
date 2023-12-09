@@ -17,8 +17,10 @@ public class ClientRepository : IClientRepository
     
     #region Create
     
-    public async Task<int> InsertClientAsync(ClientEntity entity)
+    public async Task<int> InsertClientAsync(Client client)
     {
+        var entity = new ClientEntity(client);
+        
         await _dbContext.Client.AddAsync(entity);
         return await _dbContext.SaveChangesAsync();
     }
@@ -30,15 +32,17 @@ public class ClientRepository : IClientRepository
     public async Task<Client?> GetClientAsync(Guid clientId)
     {
         ClientEntity? entity = await _dbContext.Client.FirstOrDefaultAsync(c => c.ClientId == clientId);
-        return entity?.ToServiceModel();
+        return entity != null ? new Client(entity) : null;
     }
     
     #endregion
     
     #region Update
 
-    public async Task<int> UpdateClientAsync(ClientEntity entity)
+    public async Task<int> UpdateClientAsync(Client client)
     {
+        var entity = new ClientEntity(client);
+        
         _dbContext.Client.Update(entity);
         return await _dbContext.SaveChangesAsync();
     }

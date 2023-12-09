@@ -1,22 +1,23 @@
-using Bulkster_API.Models.Controller;
+using Bulkster_API.Models.Repository;
 
 namespace Bulkster_API.Models.Service;
 
 public class ActivityLevel
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; }
     
-    public string? DisplayName { get; set; }
+    public string DisplayName { get; }
     
-    public string? Description { get; set; }
+    public string Description { get; }
 
-    public GetActivityLevelOptionsResponse ToControllerModel()
+    #region Constructors
+
+    public ActivityLevel(ActivityLevelEntity entity)
     {
-        return new GetActivityLevelOptionsResponse
-        {
-            ActivityLevelId = Id,
-            DisplayName = DisplayName,
-            Description = Description
-        };
+        Id = entity.ActivityLevelId;
+        DisplayName = entity.DisplayName;
+        Description = entity.Description;
     }
+
+    #endregion
 }

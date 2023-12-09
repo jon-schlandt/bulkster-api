@@ -8,22 +8,15 @@ public class GenderEntity
 {
     [Key]
     [Column("GenderId", TypeName = "binary(16)")]
-    public Guid GenderId { get; set; }
+    public Guid GenderId { get; }
     
     [Required]
     [Column("DisplayName", TypeName = "varchar(10)")]
-    public string? DisplayName { get; set; }
-    
-    #region Conversions
+    public string DisplayName { get; }
 
-    public Gender ToServiceModel()
+    public GenderEntity(Gender gender)
     {
-        return new Gender
-        {
-            Id = GenderId,
-            DisplayName = DisplayName
-        };
+        GenderId = gender.Id;
+        DisplayName = gender.DisplayName;
     }
-    
-    #endregion
 }

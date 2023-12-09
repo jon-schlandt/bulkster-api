@@ -17,8 +17,10 @@ public class ProgressLogRepository : IProgressLogRepository
 
     #region Create
     
-    public async Task<int> InsertProgressLogAsync(ProgressLogEntity entity)
+    public async Task<int> InsertProgressLogAsync(ProgressLog progressLog)
     {
+        var entity = new ProgressLogEntity(progressLog);
+        
         _dbContext.ProgressLog.Add(entity);
         return await _dbContext.SaveChangesAsync();
     }
@@ -33,15 +35,17 @@ public class ProgressLogRepository : IProgressLogRepository
             p.ClientId == clientId 
             && p.LogDate.Day == DateTime.UtcNow.Day);
 
-        return entity?.ToServiceModel();
+        return entity != null ? new ProgressLog(entity): null;
     }
     
     #endregion
     
     #region Update
 
-    public async Task<int> UpdateProgressLogAsync(ProgressLogEntity entity)
+    public async Task<int> UpdateProgressLogAsync(ProgressLog progressLog)
     {
+        var entity = new ProgressLogEntity(progressLog);
+        
         _dbContext.ProgressLog.Update(entity);
         return await _dbContext.SaveChangesAsync();
     }

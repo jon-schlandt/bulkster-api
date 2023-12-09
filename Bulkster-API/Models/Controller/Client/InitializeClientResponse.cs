@@ -1,4 +1,4 @@
-namespace Bulkster_API.Models.Controller;
+namespace Bulkster_API.Models.Controller.Client;
 
 public class InitializeClientResponse
 {

@@ -17,8 +17,10 @@ public class SessionRepository : ISessionRepository
     
     #region Create
     
-    public async Task<int> InsertSessionAsync(SessionEntity entity)
+    public async Task<int> InsertSessionAsync(Session session)
     {
+        var entity = new SessionEntity(session);
+        
         await _dbContext.Session.AddAsync(entity);
         return await _dbContext.SaveChangesAsync();
     }
@@ -30,15 +32,17 @@ public class SessionRepository : ISessionRepository
     public async Task<Session?> GetSessionByClientIdAsync(Guid clientId)
     {
         SessionEntity? entity = await _dbContext.Session.FirstOrDefaultAsync(s => s.ClientId == clientId);
-        return entity?.ToServiceModel();
+        return entity != null ? new Session(entity) : null;
     }
     
     #endregion
     
     #region Update
 
-    public async Task<int> UpdateSessionAsync(SessionEntity entity)
+    public async Task<int> UpdateSessionAsync(Session session)
     {
+        var entity = new SessionEntity(session);
+        
         _dbContext.Session.Update(entity);
         return await _dbContext.SaveChangesAsync();
     }

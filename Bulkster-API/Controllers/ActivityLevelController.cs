@@ -1,3 +1,4 @@
+using Bulkster_API.Models.Controller.ClientOptions;
 using Bulkster_API.Models.Service;
 using Bulkster_API.Security;
 using Bulkster_API.Services.Interfaces;
@@ -21,12 +22,12 @@ public class ActivityLevelController : ControllerBase
 
     [Route("options")]
     [HttpGet]
-    public async Task<ActionResult> GetActivityLevelOptionsAsync()
+    public async Task<ActionResult<List<GetActivityLevelOptionResponse>>> GetActivityLevelOptionsAsync()
     {
         try
         {
             List<ActivityLevel> options = await _clientOptionsService.GetActivityLevelOptionsAsync();
-            return Ok(options.Select(o => o.ToControllerModel()));
+            return Ok(options.Select(o => new GetActivityLevelOptionResponse(o)));
         }
         catch (Exception)
         {

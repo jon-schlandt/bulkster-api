@@ -23,15 +23,15 @@ public class ProgressService : IProgressService
         ProgressLog? existingLog = await _progressLogRepository.GetProgressLogForTodayAsync(progressLog.ClientId);
         if (existingLog != null)
         {
-            progressLog.Id = existingLog.Id;
-            await _progressLogRepository.UpdateProgressLogAsync(progressLog.ToEntityModel());
+            existingLog.CaloriesLogged += progressLog.CaloriesLogged;
+            await _progressLogRepository.UpdateProgressLogAsync(existingLog);
         }
         else
         {
             progressLog.Id = Guid.NewGuid();
-            await _progressLogRepository.InsertProgressLogAsync(progressLog.ToEntityModel());
+            await _progressLogRepository.InsertProgressLogAsync(progressLog);
         }
         
-        return progressLog.Id;
+        return progressLog.Id.GetValueOrDefault();
     }
 }

@@ -20,17 +20,14 @@ public class ProgressLogEntity
     [Column(TypeName = "datetime")]
     public DateTime LogDate { get; set; }
     
-    #region Conversions
+    #region Constructors
 
-    public ProgressLog ToServiceModel()
+    public ProgressLogEntity(ProgressLog progressLog)
     {
-        return new ProgressLog
-        {
-            Id = ProgressLogId,
-            ClientId = ClientId,
-            CaloriesLogged = CaloriesLogged,
-            LogDate = DateOnly.FromDateTime(LogDate)
-        };
+        ProgressLogId = progressLog.Id.GetValueOrDefault();
+        ClientId = progressLog.ClientId;
+        CaloriesLogged = progressLog.CaloriesLogged;
+        LogDate = progressLog.LogDate.ToDateTime(new TimeOnly());
     }
     
     #endregion

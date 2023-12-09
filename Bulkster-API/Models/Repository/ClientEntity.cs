@@ -8,46 +8,43 @@ public class ClientEntity
 {
     [Key]
     [Column(TypeName = "binary(16)")]
-    public Guid ClientId { get; set; }
+    public Guid ClientId { get; }
     
     [ForeignKey("fk_client_genderId")]
     [Column(TypeName = "binary(16)")]
-    public Guid GenderId { get; set; }
+    public Guid GenderId { get; }
     
     [Column(TypeName = "tinyint")]
-    public byte Age { get; set; }
+    public byte Age { get; }
     
     [Column(TypeName = "smallint")]
-    public short Weight { get; set; }
+    public short Weight { get; }
     
     [Column(TypeName = "smallint")]
-    public short Height { get; set; }
+    public short Height { get; }
     
     [ForeignKey("fk_client_activityLevelId")]
     [Column(TypeName = "binary(16)")]
-    public Guid ActivityLevelId { get; set; }
+    public Guid ActivityLevelId { get; }
     
     [Column(TypeName = "smallint")]
-    public short CalorieModifier { get; set; }
+    public short CalorieModifier { get; }
     
     [Column(TypeName = "smallint")]
-    public short DailyCalorieGoal { get; set; }
+    public short DailyCalorieGoal { get; }
     
-    #region Conversions
+    #region Constructors
 
-    public Client ToServiceModel()
+    public ClientEntity(Client client)
     {
-        return new Client
-        {
-            Id = ClientId,
-            GenderId = GenderId,
-            Age = Age,
-            Weight = Weight,
-            Height = Height,
-            ActivityLevelId = ActivityLevelId,
-            CalorieModifier = CalorieModifier,
-            DailyCalorieGoal = DailyCalorieGoal
-        };
+        ClientId = client.Id;
+        GenderId = client.GenderId;
+        Age = client.Age;
+        Weight = client.Weight;
+        Height = client.Height;
+        ActivityLevelId = client.ActivityLevelId;
+        CalorieModifier = client.CalorieModifier;
+        DailyCalorieGoal = client.DailyCalorieGoal;
     }
     
     #endregion

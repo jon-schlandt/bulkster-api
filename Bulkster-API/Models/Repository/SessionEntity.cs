@@ -8,27 +8,24 @@ public class SessionEntity
 {
     [Key]
     [Column(TypeName = "binary(16)")]
-    public Guid SessionId { get; set; }
+    public Guid SessionId { get; }
     
     [Required]
     [ForeignKey("fk_session_clientId")]
     [Column(TypeName = "binary(16)")]
-    public Guid ClientId { get; set; }
+    public Guid ClientId { get; }
     
     [Required]
     [Column(TypeName = "datetime")]
-    public DateTime LastSessionDate { get; set; }
-
-    #region Conversions
+    public DateTime LastSessionDate { get; }
     
-    public Session ToServiceModel()
+    #region Constructors
+
+    public SessionEntity(Session session)
     {
-        return new Session
-        {
-            Id = SessionId,
-            ClientId = ClientId,
-            LastSessionDate = LastSessionDate
-        };
+        SessionId = session.Id;
+        ClientId = session.ClientId;
+        LastSessionDate = session.LastSessionDate;
     }
     
     #endregion

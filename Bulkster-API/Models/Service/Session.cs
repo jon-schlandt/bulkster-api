@@ -4,23 +4,27 @@ namespace Bulkster_API.Models.Service;
 
 public class Session
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; }
     
-    public Guid ClientId { get; set; }
+    public Guid ClientId { get; }
     
     public DateTime LastSessionDate { get; set; }
     
-    #region Conversions
+    #region Constructors
 
-    public SessionEntity ToEntityModel()
+    public Session(Guid id, Guid clientId, DateTime lastSessionDate)
     {
-        return new SessionEntity
-        {
-            SessionId = Id,
-            ClientId = ClientId,
-            LastSessionDate = LastSessionDate
-        };
+        Id = id;
+        ClientId = clientId;
+        LastSessionDate = lastSessionDate;
     }
-    
+
+    public Session(SessionEntity entity)
+    {
+        Id = entity.SessionId;
+        ClientId = entity.ClientId;
+        LastSessionDate = entity.LastSessionDate;
+    }
+
     #endregion
 }

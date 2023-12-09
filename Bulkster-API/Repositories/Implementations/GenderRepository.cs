@@ -18,6 +18,6 @@ public class GenderRepository : IGenderRepository
     public async Task<IEnumerable<Gender>> GetGendersAsync()
     {
         List<GenderEntity> entities = await _dbContext.Gender.ToListAsync();
-        return entities.Select(e => e.ToServiceModel());
+        return entities.Select(e => new Gender(e));
     }
 }

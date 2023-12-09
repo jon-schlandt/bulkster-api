@@ -1,19 +1,16 @@
-using Bulkster_API.Models.Controller;
+using Bulkster_API.Models.Repository;
 
 namespace Bulkster_API.Models.Service;
 
 public class Gender
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; }
     
-    public string? DisplayName { get; set; }
+    public string DisplayName { get; }
 
-    public GetGenderOptionResponse ToControllerModel()
+    public Gender(GenderEntity entity)
     {
-        return new GetGenderOptionResponse
-        {
-            GenderId = Id,
-            DisplayName = DisplayName
-        };
+        Id = entity.GenderId;
+        DisplayName = entity.DisplayName;
     }
 }

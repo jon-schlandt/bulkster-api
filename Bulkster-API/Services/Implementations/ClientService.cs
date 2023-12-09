@@ -21,16 +21,15 @@ public class ClientService : IClientService
     public async Task<Guid> InitializeClientAsync(Client client)
     {
         client.Id = Guid.NewGuid();
+
+        var session = new Session(
+            id: Guid.NewGuid(),
+            clientId: client.Id,
+            lastSessionDate: DateTime.UtcNow
+        );
         
-        var session = new Session
-        {
-            Id = Guid.NewGuid(),
-            ClientId = client.Id,
-            LastSessionDate = DateTime.UtcNow
-        };
-        
-        await _clientRepository.InsertClientAsync(client.ToEntityModel());
-        await _sessionRepository.InsertSessionAsync(session.ToEntityModel());
+        await _clientRepository.InsertClientAsync(client);
+        await _sessionRepository.InsertSessionAsync(session);
 
         return client.Id;
     }
@@ -42,7 +41,7 @@ public class ClientService : IClientService
 
     public async Task<Guid> UpdateClientAsync(Client client)
     {
-        await _clientRepository.UpdateClientAsync(client.ToEntityModel());
+        await _clientRepository.UpdateClientAsync(client);
         return client.Id;
     }
 }

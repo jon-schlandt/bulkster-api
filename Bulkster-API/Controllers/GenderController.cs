@@ -1,3 +1,4 @@
+using Bulkster_API.Models.Controller.ClientOptions;
 using Bulkster_API.Models.Service;
 using Bulkster_API.Security;
 using Bulkster_API.Services.Interfaces;
@@ -21,12 +22,12 @@ public class GenderController : ControllerBase
 
     [Route("options")]
     [HttpGet]
-    public async Task<ActionResult> GetGenderOptionsAsync()
+    public async Task<ActionResult<List<GetGenderOptionResponse>>> GetGenderOptionsAsync()
     {
         try
         {
             List<Gender> options = await _clientOptionsService.GetGenderOptionsAsync();
-            return Ok(options.Select(o => o.ToControllerModel()));
+            return Ok(options.Select(o => new GetGenderOptionResponse(o)));
         }
         catch (Exception)
         {

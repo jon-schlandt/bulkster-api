@@ -1,39 +1,33 @@
-using Bulkster_API.Models.Controller;
 using Bulkster_API.Models.Repository;
 
 namespace Bulkster_API.Models.Service;
 
 public class ProgressLog
 {
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
     
-    public Guid ClientId { get; set; }
+    public Guid ClientId { get; }
     
     public short CaloriesLogged { get; set; }
     
-    public DateOnly LogDate { get; set; }
+    public DateOnly LogDate { get; }
     
-    #region Conversions
+    #region Constructors
 
-    public GetProgressResponse ToControllerModel()
+    public ProgressLog(Guid? id, Guid clientId, short caloriesLogged, DateOnly logDate)
     {
-        return new GetProgressResponse
-        {
-            ClientId = ClientId,
-            CaloriesLogged = CaloriesLogged,
-            LogDate = LogDate
-        };
+        Id = id;
+        ClientId = clientId;
+        CaloriesLogged = caloriesLogged;
+        LogDate = logDate;
     }
 
-    public ProgressLogEntity ToEntityModel()
+    public ProgressLog(ProgressLogEntity entity)
     {
-        return new ProgressLogEntity
-        {
-            ProgressLogId = Id,
-            ClientId = ClientId,
-            CaloriesLogged = CaloriesLogged,
-            LogDate = LogDate.ToDateTime(new TimeOnly(0, 0))
-        };
+        Id = entity.ClientId;
+        ClientId = entity.ClientId;
+        CaloriesLogged = entity.CaloriesLogged;
+        LogDate = DateOnly.FromDateTime(entity.LogDate);
     }
     
     #endregion

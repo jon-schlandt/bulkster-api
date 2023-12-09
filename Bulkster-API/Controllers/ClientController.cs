@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using Bulkster_API.Models.Controller;
+using Bulkster_API.Models.Controller.Client;
 using Bulkster_API.Models.Service;
 using Bulkster_API.Security;
 using Bulkster_API.Services.Interfaces;
@@ -29,11 +29,22 @@ public class ClientController : ControllerBase
 
     [Route("initialize")]
     [HttpPost]
-    public async Task<ActionResult> InitializeClientAsync([FromBody] InitializeClientRequest request)
+    public async Task<ActionResult<InitializeClientResponse>> InitializeClientAsync(
+        [FromBody] InitializeClientRequest request)
     {
+        Client client;
         try
         {
-            Guid clientId = await _clientService.InitializeClientAsync(request.ToServiceModel());
+            client = new Client(request);
+        }
+        catch (ValidationException ex)
+        {
+            return BadRequest(new { ex.Message });
+        }
+        
+        try
+        {
+            Guid clientId = await _clientService.InitializeClientAsync(client);
             return Ok(new InitializeClientResponse
             {
                 ClientId = clientId
@@ -47,8 +58,14 @@ public class ClientController : ControllerBase
 
     [Route("login")]
     [HttpGet]
-    public async Task<ActionResult> LoginAsync([Required] Guid clientId)
+    public async Task<ActionResult<ClientLoginResponse>> LoginAsync([FromBody] ClientLoginRequest request)
     {
+        Guid clientId = request.ClientId.GetValueOrDefault();
+        if (clientId == Guid.Empty)
+        {
+            BadRequest(new { Message = $"The {nameof(request.ClientId)} field cannot be null or empty." });
+        }
+        
         try
         {
             Client? client = await _clientService.GetClientAsync(clientId);
@@ -58,7 +75,7 @@ public class ClientController : ControllerBase
             }
 
             await _sessionService.RefreshSessionAsync(client.Id);
-            return Ok(client.ToControllerModel());
+            return Ok(new ClientLoginResponse(client));
         }
         catch (Exception)
         {
@@ -67,11 +84,21 @@ public class ClientController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateClientAsync([FromBody] UpdateClientRequest request)
+    public async Task<ActionResult<UpdateClientResponse>> UpdateClientAsync([FromBody] UpdateClientRequest request)
     {
+        Client client;
         try
         {
-            Guid clientId = await _clientService.UpdateClientAsync(request.ToServiceModel());
+            client = new Client(request);
+        }
+        catch (ValidationException ex)
+        {
+            return BadRequest(new { ex.Message });
+        }
+        
+        try
+        {
+            Guid clientId = await _clientService.UpdateClientAsync(client);
             return Ok(new UpdateClientResponse
             {
                 ClientId = clientId

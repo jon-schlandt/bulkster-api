@@ -1,4 +1,3 @@
-using Bulkster_API.Models.Repository;
 using Bulkster_API.Models.Service;
 
 namespace Bulkster_API.Services.Interfaces;

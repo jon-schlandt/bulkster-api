@@ -8,23 +8,24 @@ public class ActivityLevelEntity
 {
     [Key]
     [Column(TypeName = "binary(16)")]
-    public Guid ActivityLevelId { get; set; }
+    public Guid ActivityLevelId { get; }
     
     [Required]
     [Column(TypeName = "varchar(10)")]
-    public string? DisplayName { get; set; }
+    public string DisplayName { get; }
     
     [Required]
     [Column(TypeName = "varchar(255)")]
-    public string? Description { get; set; }
+    public string Description { get; }
+    
+    #region Constructors
 
-    public ActivityLevel ToServiceModel()
+    public ActivityLevelEntity(ActivityLevel activityLevel)
     {
-        return new ActivityLevel
-        {
-            Id = ActivityLevelId,
-            DisplayName = DisplayName,
-            Description = Description
-        };
+        ActivityLevelId = activityLevel.Id;
+        DisplayName = activityLevel.DisplayName;
+        Description = activityLevel.Description;
     }
+    
+    #endregion
 }

@@ -1,4 +1,3 @@
-using Bulkster_API.Data;
 using Bulkster_API.Models.Service;
 using Bulkster_API.Repositories.Interfaces;
 using Bulkster_API.Services.Interfaces;
@@ -9,17 +8,11 @@ public class ClientOptionsService : IClientOptionsService
 {
     private readonly IActivityRepository _activityRepository;
     private readonly IGenderRepository _genderRepository;
-    private readonly IBulksterDbContext _dbContext;
 
-    public ClientOptionsService(
-        IActivityRepository activityRepository,
-        IGenderRepository genderRepository,
-        IBulksterDbContext dbContext
-    )
+    public ClientOptionsService(IActivityRepository activityRepository, IGenderRepository genderRepository)
     {
         _activityRepository = activityRepository;
         _genderRepository = genderRepository;
-        _dbContext = dbContext;
     }
     
     public async Task<List<ActivityLevel>> GetActivityLevelOptionsAsync()
