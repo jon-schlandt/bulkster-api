@@ -8,17 +8,17 @@ public class IngredientEntity
 {
     [Key]
     [Column(TypeName = "binary(16)")]
-    public Guid IngredientId { get; set; }
+    public Guid IngredientId { get; private set; }
     
     [ForeignKey("fk_ingredient_mealId")]
     [Column(TypeName = "binary(16)")]
-    public Guid MealId { get; set; }
+    public Guid MealId { get; private set; }
     
     [Column(TypeName = "varchar(255)")]
-    public string Name { get; set; }
+    public string Name { get; private set; }
     
     [Column(TypeName = "smallint")]
-    public short Calories { get; set; }
+    public short Calories { get; private set; }
 
     public IngredientEntity(Guid ingredientId, Guid mealId, string name, short calories)
     {

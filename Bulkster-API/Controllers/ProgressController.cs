@@ -28,7 +28,8 @@ public class ProgressController : ControllerBase
     
     [Route("today")]
     [HttpGet]
-    public async Task<ActionResult<GetProgressResponse>> GetProgressForTodayAsync([FromBody] GetProgressRequest request)
+    public async Task<ActionResult<GetProgressResponse>> GetProgressForTodayAsync(
+        [FromQuery] GetProgressRequest request)
     {
         Guid clientId = request.ClientId.GetValueOrDefault();
         if (clientId == Guid.Empty)

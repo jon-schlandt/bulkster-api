@@ -44,8 +44,19 @@ public class ProgressLogRepository : IProgressLogRepository
 
     public async Task<int> UpdateProgressLogAsync(ProgressLog progressLog)
     {
-        var entity = new ProgressLogEntity(progressLog);
-        
+        var entity = await _dbContext.ProgressLog
+            .FirstOrDefaultAsync(p => p.ProgressLogId == progressLog.Id);
+
+        if (entity == null)
+        {
+            return 0;
+        }
+
+        entity.ProgressLogId = progressLog.Id.GetValueOrDefault();
+        entity.ClientId = progressLog.ClientId;
+        entity.CaloriesLogged = progressLog.CaloriesLogged;
+        entity.LogDate = progressLog.LogDate;
+            
         _dbContext.ProgressLog.Update(entity);
         return await _dbContext.SaveChangesAsync();
     }

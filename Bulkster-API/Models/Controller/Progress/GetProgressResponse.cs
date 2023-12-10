@@ -10,7 +10,7 @@ public class GetProgressResponse
     
     public short CaloriesLogged { get; set; }
     
-    public DateOnly LogDate { get; set; }
+    public DateTime LogDate { get; set; }
     
     #region Constructors
 

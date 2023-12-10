@@ -40,7 +40,7 @@ public class MealService : IMealService
             id: null,
             clientId: meal.ClientId,
             caloriesLogged: meal.Calories,
-            logDate: DateOnly.FromDateTime(DateTime.UtcNow)
+            logDate: DateTime.Now
         );
 
         await using var transaction = await _dbContext.Database.BeginTransactionAsync();
@@ -56,7 +56,7 @@ public class MealService : IMealService
         catch (Exception)
         {
             await transaction.RollbackAsync();
-            return Guid.Empty;
+            throw;
         }
     }
 }

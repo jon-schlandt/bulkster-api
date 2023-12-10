@@ -1,6 +1,5 @@
 using Bulkster_API.Models.Repository;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Bulkster_API.Data;
 

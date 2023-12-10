@@ -10,11 +10,11 @@ public class ProgressLog
     
     public short CaloriesLogged { get; set; }
     
-    public DateOnly LogDate { get; }
+    public DateTime LogDate { get; }
     
     #region Constructors
 
-    public ProgressLog(Guid? id, Guid clientId, short caloriesLogged, DateOnly logDate)
+    public ProgressLog(Guid? id, Guid clientId, short caloriesLogged, DateTime logDate)
     {
         Id = id;
         ClientId = clientId;
@@ -24,10 +24,10 @@ public class ProgressLog
 
     public ProgressLog(ProgressLogEntity entity)
     {
-        Id = entity.ClientId;
+        Id = entity.ProgressLogId;
         ClientId = entity.ClientId;
         CaloriesLogged = entity.CaloriesLogged;
-        LogDate = DateOnly.FromDateTime(entity.LogDate);
+        LogDate = entity.LogDate;
     }
     
     #endregion

@@ -22,12 +22,20 @@ public class ProgressLogEntity
     
     #region Constructors
 
+    public ProgressLogEntity(Guid progressLogId, Guid clientId, short caloriesLogged, DateTime logDate)
+    {
+        ProgressLogId = progressLogId;
+        ClientId = clientId;
+        CaloriesLogged = caloriesLogged;
+        LogDate = logDate;
+    }
+
     public ProgressLogEntity(ProgressLog progressLog)
     {
         ProgressLogId = progressLog.Id.GetValueOrDefault();
         ClientId = progressLog.ClientId;
         CaloriesLogged = progressLog.CaloriesLogged;
-        LogDate = progressLog.LogDate.ToDateTime(new TimeOnly());
+        LogDate = progressLog.LogDate;
     }
     
     #endregion

@@ -13,16 +13,19 @@ namespace Bulkster_API.Controllers;
 public class ClientController : ControllerBase
 {
     private readonly IClientService _clientService;
+    private readonly IClientOptionsService _clientOptionsService;
     private readonly ISessionService _sessionService;
     private readonly ILogger<ClientController> _logger;
 
     public ClientController(
         IClientService clientService,
+        IClientOptionsService clientOptionsService,
         ISessionService sessionService,
         ILogger<ClientController> logger
     )
     {
         _clientService = clientService;
+        _clientOptionsService = clientOptionsService;
         _sessionService = sessionService;
         _logger = logger;
     }
@@ -40,6 +43,20 @@ public class ClientController : ControllerBase
         catch (ValidationException ex)
         {
             return BadRequest(new { ex.Message });
+        }
+
+        bool genderExists = await _clientOptionsService.DoesGenderOptionExist(client.GenderId);
+        if (!genderExists)
+        {
+            var validationErr = $"Gender with Id '{client.GenderId}' does not exist";
+            return BadRequest(new { Message = validationErr });
+        }
+
+        bool activityLevelExists = await _clientOptionsService.DoesActivityLevelOptionExist(client.ActivityLevelId);
+        if (!activityLevelExists)
+        {
+            var validationErr = $"Activity level with Id '{client.ActivityLevelId}' does not exist";
+            return BadRequest(new { Message =  validationErr });
         }
         
         try

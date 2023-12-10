@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Bulkster_API.Models.Controller;
 using Bulkster_API.Models.Controller.Client;
 using Bulkster_API.Models.Repository;
 

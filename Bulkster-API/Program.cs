@@ -29,7 +29,7 @@ builder.Services.AddScoped<IProgressService, ProgressService>();
 builder.Services.AddScoped<ISessionService, SessionService>();
 
 // Register repositories
-builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
+builder.Services.AddScoped<IActivityLevelRepository, ActivityLevelRepository>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IGenderRepository, GenderRepository>();
 builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();

@@ -8,32 +8,53 @@ public class ClientEntity
 {
     [Key]
     [Column(TypeName = "binary(16)")]
-    public Guid ClientId { get; }
+    public Guid ClientId { get; private set; }
     
     [ForeignKey("fk_client_genderId")]
     [Column(TypeName = "binary(16)")]
-    public Guid GenderId { get; }
+    public Guid GenderId { get; private set; }
     
     [Column(TypeName = "tinyint")]
-    public byte Age { get; }
+    public byte Age { get; private set; }
     
     [Column(TypeName = "smallint")]
-    public short Weight { get; }
+    public short Weight { get; private set; }
     
     [Column(TypeName = "smallint")]
-    public short Height { get; }
+    public short Height { get; private set; }
     
     [ForeignKey("fk_client_activityLevelId")]
     [Column(TypeName = "binary(16)")]
-    public Guid ActivityLevelId { get; }
+    public Guid ActivityLevelId { get; private set; }
     
     [Column(TypeName = "smallint")]
-    public short CalorieModifier { get; }
+    public short CalorieModifier { get; private set; }
     
     [Column(TypeName = "smallint")]
-    public short DailyCalorieGoal { get; }
+    public short DailyCalorieGoal { get; private set; }
     
     #region Constructors
+
+    public ClientEntity(
+        Guid clientId, 
+        Guid genderId, 
+        byte age, 
+        short weight, 
+        short height, 
+        Guid activityLevelId,
+        short calorieModifier, 
+        short dailyCalorieGoal
+    )
+    {
+        ClientId = clientId;
+        GenderId = genderId;
+        Age = age;
+        Weight = weight;
+        Height = height;
+        ActivityLevelId = activityLevelId;
+        CalorieModifier = calorieModifier;
+        DailyCalorieGoal = dailyCalorieGoal;
+    }
 
     public ClientEntity(Client client)
     {

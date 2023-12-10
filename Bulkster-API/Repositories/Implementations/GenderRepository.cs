@@ -14,6 +14,12 @@ public class GenderRepository : IGenderRepository
     {
         _dbContext = dbContext;
     }
+
+    public async Task<Gender?> GetGenderById(Guid genderId)
+    {
+        GenderEntity? entity = await _dbContext.Gender.FirstOrDefaultAsync(g => g.GenderId == genderId);
+        return entity != null ? new Gender(entity) : null;
+    }
     
     public async Task<IEnumerable<Gender>> GetGendersAsync()
     {

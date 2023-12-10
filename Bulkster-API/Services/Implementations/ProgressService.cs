@@ -25,13 +25,13 @@ public class ProgressService : IProgressService
         {
             existingLog.CaloriesLogged += progressLog.CaloriesLogged;
             await _progressLogRepository.UpdateProgressLogAsync(existingLog);
+            
+            return existingLog.Id.GetValueOrDefault();
         }
-        else
-        {
-            progressLog.Id = Guid.NewGuid();
-            await _progressLogRepository.InsertProgressLogAsync(progressLog);
-        }
-        
+
+        progressLog.Id = Guid.NewGuid();
+        await _progressLogRepository.InsertProgressLogAsync(progressLog);
+
         return progressLog.Id.GetValueOrDefault();
     }
 }
