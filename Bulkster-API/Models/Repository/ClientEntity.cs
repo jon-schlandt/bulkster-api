@@ -12,26 +12,26 @@ public class ClientEntity
     
     [ForeignKey("fk_client_genderId")]
     [Column(TypeName = "binary(16)")]
-    public Guid GenderId { get; private set; }
+    public Guid GenderId { get; set; }
     
     [Column(TypeName = "tinyint")]
-    public byte Age { get; private set; }
+    public byte Age { get; set; }
     
     [Column(TypeName = "smallint")]
-    public short Weight { get; private set; }
+    public short Weight { get; set; }
     
     [Column(TypeName = "smallint")]
-    public short Height { get; private set; }
+    public short Height { get; set; }
     
     [ForeignKey("fk_client_activityLevelId")]
     [Column(TypeName = "binary(16)")]
-    public Guid ActivityLevelId { get; private set; }
+    public Guid ActivityLevelId { get; set; }
     
     [Column(TypeName = "smallint")]
-    public short CalorieModifier { get; private set; }
+    public short CalorieModifier { get; set; }
     
     [Column(TypeName = "smallint")]
-    public short DailyCalorieGoal { get; private set; }
+    public short DailyCalorieGoal { get; set; }
     
     #region Constructors
 

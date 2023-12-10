@@ -17,7 +17,7 @@ public class SessionEntity
     
     [Required]
     [Column(TypeName = "datetime")]
-    public DateTime LastSessionDate { get; private set; }
+    public DateTime LastSessionDate { get; set; }
     
     #region Constructors
 

@@ -41,7 +41,14 @@ public class SessionRepository : ISessionRepository
 
     public async Task<int> UpdateSessionAsync(Session session)
     {
-        var entity = new SessionEntity(session);
+        SessionEntity? entity = await _dbContext.Session.FirstOrDefaultAsync(s => s.SessionId == session.Id);
+        if (entity == null)
+        {
+            return 0;
+        }
+        
+        // Update mutable properties only
+        entity.LastSessionDate = session.LastSessionDate;
         
         _dbContext.Session.Update(entity);
         return await _dbContext.SaveChangesAsync();

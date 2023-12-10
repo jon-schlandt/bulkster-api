@@ -35,17 +35,17 @@ public class Client
 
         if (request.Age is null or <= 0)
         {
-            validationErr = $"The {nameof(request.Age)} field cannot be null or have a value less than 1";
+            validationErr = $"The {nameof(request.Age)} field cannot be null or have a value less than 1.";
         }
 
         if (request.Weight is null or <= 0)
         {
-            validationErr = $"The {nameof(request.Weight)} field cannot be null or have a value less than 1";
+            validationErr = $"The {nameof(request.Weight)} field cannot be null or have a value less than 1.";
         }
 
         if (request.Height is null or <= 0)
         {
-            validationErr = $"The {nameof(request.Height)} field cannot be null or have a value less than 1";
+            validationErr = $"The {nameof(request.Height)} field cannot be null or have a value less than 1.";
         }
 
         if (request.ActivityLevelId == null || request.ActivityLevelId == Guid.Empty)
@@ -53,14 +53,14 @@ public class Client
             validationErr = $"The {nameof(request.ActivityLevelId)} field cannot be null or empty.";
         }
 
-        if (request.CalorieModifier is null or <= 0)
+        if (request.CalorieModifier is null)
         {
-            validationErr = $"The {nameof(request.CalorieModifier)} field cannot be null or have a value less than 1";
+            validationErr = $"The {nameof(request.CalorieModifier)} field cannot be null.";
         }
 
         if (request.DailyCalorieGoal is null or <= 0)
         {
-            validationErr = $"The {nameof(request.DailyCalorieGoal)} field cannot be null or have a value less than 1";
+            validationErr = $"The {nameof(request.DailyCalorieGoal)} field cannot be null or have a value less than 1.";
         }
 
         if (validationErr != null)
@@ -93,17 +93,17 @@ public class Client
 
         if (request.Age is null or <= 0)
         {
-            validationErr = $"The {nameof(request.Age)} field cannot be null or have a value less than 1";
+            validationErr = $"The {nameof(request.Age)} field cannot be null or have a value less than 1.";
         }
 
         if (request.Weight is null or <= 0)
         {
-            validationErr = $"The {nameof(request.Weight)} field cannot be null or have a value less than 1";
+            validationErr = $"The {nameof(request.Weight)} field cannot be null or have a value less than 1.";
         }
 
         if (request.Height is null or <= 0)
         {
-            validationErr = $"The {nameof(request.Height)} field cannot be null or have a value less than 1";
+            validationErr = $"The {nameof(request.Height)} field cannot be null or have a value less than 1.";
         }
 
         if (request.ActivityLevelId == null || request.ActivityLevelId == Guid.Empty)
@@ -111,14 +111,14 @@ public class Client
             validationErr = $"The {nameof(request.ActivityLevelId)} field cannot be null or empty.";
         }
 
-        if (request.CalorieModifier is null or <= 0)
+        if (request.CalorieModifier is null)
         {
-            validationErr = $"The {nameof(request.CalorieModifier)} field cannot be null or have a value less than 1";
+            validationErr = $"The {nameof(request.CalorieModifier)} field cannot be null.";
         }
 
         if (request.DailyCalorieGoal is null or <= 0)
         {
-            validationErr = $"The {nameof(request.DailyCalorieGoal)} field cannot be null or have a value less than 1";
+            validationErr = $"The {nameof(request.DailyCalorieGoal)} field cannot be null or have a value less than 1.";
         }
 
         if (validationErr != null)

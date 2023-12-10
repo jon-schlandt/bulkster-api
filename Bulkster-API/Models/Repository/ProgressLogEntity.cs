@@ -8,17 +8,17 @@ public class ProgressLogEntity
 {
     [Key]
     [Column(TypeName = "binary(16)")]
-    public Guid ProgressLogId { get; set; }
+    public Guid ProgressLogId { get; private set; }
     
     [ForeignKey("fk_progressLog_clientId")]
     [Column(TypeName = "binary(16)")]
-    public Guid ClientId { get; set; }
+    public Guid ClientId { get; private set; }
     
     [Column(TypeName = "smallint")]
     public short CaloriesLogged { get; set; }
     
     [Column(TypeName = "datetime")]
-    public DateTime LogDate { get; set; }
+    public DateTime LogDate { get; private set; }
     
     #region Constructors
 

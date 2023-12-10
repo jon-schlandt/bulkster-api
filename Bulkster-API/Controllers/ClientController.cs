@@ -74,7 +74,7 @@ public class ClientController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<ActionResult<ClientLoginResponse>> LoginAsync([FromBody] ClientLoginRequest request)
+    public async Task<ActionResult<ClientLoginResponse>> LoginAsync([FromQuery] ClientLoginRequest request)
     {
         Guid clientId = request.ClientId.GetValueOrDefault();
         if (clientId == Guid.Empty)

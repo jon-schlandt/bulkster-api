@@ -41,7 +41,22 @@ public class ClientRepository : IClientRepository
 
     public async Task<int> UpdateClientAsync(Client client)
     {
-        var entity = new ClientEntity(client);
+        ClientEntity? entity = await _dbContext.Client
+            .FirstOrDefaultAsync(c => c.ClientId == client.Id);
+
+        if (entity == null)
+        {
+            return 0;
+        }
+
+        // Update mutable properties only
+        entity.GenderId = client.GenderId;
+        entity.Age = client.Age;
+        entity.Weight = client.Weight;
+        entity.Height = client.Height;
+        entity.ActivityLevelId = client.ActivityLevelId;
+        entity.CalorieModifier = client.CalorieModifier;
+        entity.DailyCalorieGoal = client.DailyCalorieGoal;
         
         _dbContext.Client.Update(entity);
         return await _dbContext.SaveChangesAsync();
