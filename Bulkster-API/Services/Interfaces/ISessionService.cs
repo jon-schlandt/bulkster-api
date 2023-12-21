@@ -2,5 +2,5 @@ namespace Bulkster_API.Services.Interfaces;
 
 public interface ISessionService
 {
-    public Task<int> RefreshSessionAsync(Guid clientId);
+    public Task<Guid> RefreshSessionAsync(Guid clientId);
 }

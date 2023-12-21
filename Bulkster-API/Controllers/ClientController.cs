@@ -14,19 +14,16 @@ public class ClientController : ControllerBase
 {
     private readonly IClientService _clientService;
     private readonly IClientOptionsService _clientOptionsService;
-    private readonly ISessionService _sessionService;
     private readonly ILogger<ClientController> _logger;
 
     public ClientController(
         IClientService clientService,
         IClientOptionsService clientOptionsService,
-        ISessionService sessionService,
         ILogger<ClientController> logger
     )
     {
         _clientService = clientService;
         _clientOptionsService = clientOptionsService;
-        _sessionService = sessionService;
         _logger = logger;
     }
 
@@ -38,7 +35,7 @@ public class ClientController : ControllerBase
         Client client;
         try
         {
-            client = new Client(request);
+            client = request.ToServiceModel();
         }
         catch (ValidationException ex)
         {
@@ -62,10 +59,7 @@ public class ClientController : ControllerBase
         try
         {
             Guid clientId = await _clientService.InitializeClientAsync(client);
-            return Ok(new InitializeClientResponse
-            {
-                ClientId = clientId
-            });
+            return Ok(new InitializeClientResponse(clientId));
         }
         catch (Exception)
         {
@@ -73,24 +67,24 @@ public class ClientController : ControllerBase
         }
     }
     
+    [Route("login")]
     [HttpGet]
     public async Task<ActionResult<ClientLoginResponse>> LoginAsync([FromQuery] ClientLoginRequest request)
     {
         Guid clientId = request.ClientId.GetValueOrDefault();
         if (clientId == Guid.Empty)
         {
-            BadRequest(new { Message = $"The {nameof(request.ClientId)} field cannot be null or empty." });
+            BadRequest(new { Message = $"The {nameof(request.ClientId)} field cannot be empty." });
         }
         
         try
         {
-            Client? client = await _clientService.GetClientAsync(clientId);
+            Client? client = await _clientService.LoginClientAsync(clientId);
             if (client == null)
             {
                 return NotFound(new { Message = $"Client with Id '{clientId}' could not be found." });
             }
-
-            await _sessionService.RefreshSessionAsync(client.Id);
+            
             return Ok(new ClientLoginResponse(client));
         }
         catch (Exception)
@@ -105,7 +99,7 @@ public class ClientController : ControllerBase
         Client client;
         try
         {
-            client = new Client(request);
+            client = request.ToServiceModel();
         }
         catch (ValidationException ex)
         {
@@ -115,10 +109,7 @@ public class ClientController : ControllerBase
         try
         {
             Guid clientId = await _clientService.UpdateClientAsync(client);
-            return Ok(new UpdateClientResponse
-            {
-                ClientId = clientId
-            });
+            return Ok(new UpdateClientResponse(clientId));
         }
         catch (Exception)
         {

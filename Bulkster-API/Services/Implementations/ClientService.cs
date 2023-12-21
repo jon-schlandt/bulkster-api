@@ -1,3 +1,4 @@
+using Bulkster_API.Data;
 using Bulkster_API.Models.Service;
 using Bulkster_API.Repositories.Interfaces;
 using Bulkster_API.Services.Interfaces;
@@ -6,32 +7,49 @@ namespace Bulkster_API.Services.Implementations;
 
 public class ClientService : IClientService
 {
+    private readonly ISessionService _sessionService;
     private readonly IClientRepository _clientRepository;
-    private readonly ISessionRepository _sessionRepository;
+    private readonly IBulksterDbContext _dbContext;
     
     public ClientService(
+        ISessionService sessionService,
         IClientRepository clientRepository,
-        ISessionRepository sessionRepository
+        IBulksterDbContext dbContext
     )
     {
+        _sessionService = sessionService;
         _clientRepository = clientRepository;
-        _sessionRepository = sessionRepository;
+        _dbContext = dbContext;
     }
     
     public async Task<Guid> InitializeClientAsync(Client client)
     {
-        client.Id = Guid.NewGuid();
+        await using var transaction = await _dbContext.BeginTransactionAsync();
+        try
+        {
+            await _clientRepository.InsertClientAsync(client);
+            await _sessionService.RefreshSessionAsync(client.Id);
 
-        var session = new Session(
-            id: Guid.NewGuid(),
-            clientId: client.Id,
-            lastSessionDate: DateTime.UtcNow
-        );
-        
-        await _clientRepository.InsertClientAsync(client);
-        await _sessionRepository.InsertSessionAsync(session);
+            await transaction.CommitAsync();
+            return client.Id;
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
+    }
 
-        return client.Id;
+    public async Task<Client?> LoginClientAsync(Guid clientId)
+    {
+        Client? client = await GetClientAsync(clientId);
+        if (client == null)
+        {
+            return null;
+        }
+
+        await _sessionService.RefreshSessionAsync(clientId);
+        return client;
     }
 
     public async Task<Client?> GetClientAsync(Guid clientId)

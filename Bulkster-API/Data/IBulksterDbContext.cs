@@ -9,6 +9,10 @@ public interface IBulksterDbContext
 {
     public DatabaseFacade Database { get; }
     
+    public IDbContextTransaction? Transaction { get; set; }
+
+    Task<IDbContextTransaction> BeginTransactionAsync();
+    
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     
     public DbSet<ActivityLevelEntity> ActivityLevel { get; set; }

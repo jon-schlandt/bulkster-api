@@ -1,0 +1,11 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5863d448_002D8782_002D46c0_002D83a3_002D8e5d31aa6ebf/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InitializeClientAsync_ReturnsClientId" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;MSTest::00D64509-9C9E-4ED6-81CE-2CF86A7F0F2E::net6.0::Tests.ClientServiceTests.InitializeClientAsync_ReturnsClientId&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c79e9437_002D20d6_002D42ac_002Db3ad_002D864f6be29a49/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="InitializeClientAsync_ReturnsClientId #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;MSTest::00D64509-9C9E-4ED6-81CE-2CF86A7F0F2E::net6.0::Tests.Services.SessionServiceTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

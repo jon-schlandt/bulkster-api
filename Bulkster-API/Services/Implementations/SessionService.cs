@@ -13,7 +13,7 @@ public class SessionService : ISessionService
         _sessionRepository = sessionRepository;
     }
     
-    public async Task<int> RefreshSessionAsync(Guid clientId)
+    public async Task<Guid> RefreshSessionAsync(Guid clientId)
     {
         Session? session = await _sessionRepository.GetSessionByClientIdAsync(clientId);
         if (session == null)
@@ -24,10 +24,14 @@ public class SessionService : ISessionService
                 lastSessionDate: DateTime.UtcNow
             );
             
-            return await _sessionRepository.InsertSessionAsync(session);
+            await _sessionRepository.InsertSessionAsync(session);
         }
-        
-        session.LastSessionDate = DateTime.UtcNow;
-        return await _sessionRepository.UpdateSessionAsync(session);
+        else
+        {
+            session.LastSessionDate = DateTime.UtcNow;
+            await _sessionRepository.UpdateSessionAsync(session);
+        }
+
+        return session.Id;
     }
 }
