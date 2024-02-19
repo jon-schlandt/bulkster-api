@@ -2,8 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Bulkster_API.Models.Controller.Client;
 
-public class ClientLoginRequest
+public class GetClientRequest
 {
     [Required]
-    public Guid? ClientId { get; set; }
+    public string? AuthUserId { get; set; }
 }

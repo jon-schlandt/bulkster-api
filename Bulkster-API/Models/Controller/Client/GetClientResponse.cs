@@ -1,12 +1,12 @@
 namespace Bulkster_API.Models.Controller.Client;
 
-public class ClientLoginResponse
+public class GetClientResponse
 {
     public Guid ClientId { get; set; }
     
     public Guid GenderId { get; set; }
     
-    public byte Age { get; set; }
+    public sbyte Age { get; set; }
     
     public short Weight { get; set; }
     
@@ -20,7 +20,7 @@ public class ClientLoginResponse
 
     #region Constructors
 
-    public ClientLoginResponse(Service.Client client)
+    public GetClientResponse(Service.Client client)
     {
         ClientId = client.Id;
         GenderId = client.GenderId;

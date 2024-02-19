@@ -5,11 +5,15 @@ namespace Bulkster_API.Services.Interfaces;
 
 public interface IClientService
 {
-    public Task<Guid> InitializeClientAsync(Client client);
+    Task<Guid> CreateClientAsync(Client client);
 
-    public Task<Client?> LoginClientAsync(Guid clientId);
+    Task<bool> DoesClientExistAsync(Guid clientId);
 
-    public Task<Client?> GetClientAsync(Guid clientId);
+    Task<bool> DoesClientExistAsync(string authUserId);
 
-    public Task<Guid> UpdateClientAsync(Client client);
+    Task<Client?> GetClientByIdAsync(Guid clientId);
+
+    Task<Client?> GetClientByAuthUserIdAsync(string authUserId);
+
+    Task<Guid> UpdateClientAsync(Client client);
 }

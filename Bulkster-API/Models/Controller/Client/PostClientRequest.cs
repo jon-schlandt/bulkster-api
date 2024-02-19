@@ -2,10 +2,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Bulkster_API.Models.Controller.Client;
 
-public class UpdateClientRequest
+public class PostClientRequest
 {
     [Required]
-    public Guid? ClientId { get; set; }
+    [StringLength(24, MinimumLength = 1)]
+    public string? AuthUserId { get; set; }
     
     [Required]
     public Guid? GenderId { get; set; }
@@ -13,7 +14,7 @@ public class UpdateClientRequest
     [Required]
     [Range(1, byte.MaxValue, ErrorMessage = $"The {nameof(Age)} field cannot have a value less than 1.")]
     public sbyte? Age { get; set; }
-
+    
     [Required]
     [Range(1, short.MaxValue, ErrorMessage = $"The {nameof(Weight)} field cannot have a value less than 1.")]
     public short? Weight { get; set; }

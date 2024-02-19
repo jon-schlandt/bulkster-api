@@ -42,7 +42,7 @@ public class MealController : ControllerBase
         
         try
         {
-            Client? client = await _clientService.GetClientAsync(request.ClientId.GetValueOrDefault());
+            Client? client = await _clientService.GetClientByIdAsync(request.ClientId.GetValueOrDefault());
             if (client == null)
             {
                 return BadRequest(new { Message = $"Client with Id '{request.ClientId}' could not be found." });

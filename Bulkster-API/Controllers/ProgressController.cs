@@ -39,7 +39,7 @@ public class ProgressController : ControllerBase
         
         try
         {
-            Client? client = await _clientService.GetClientAsync(clientId);
+            Client? client = await _clientService.GetClientByIdAsync(clientId);
             if (client == null)
             {
                 return NotFound(new { Message = $"Client with Id '{clientId}' could not be found." });

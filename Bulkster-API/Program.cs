@@ -22,20 +22,20 @@ builder.Services.AddDbContext<BulksterDbContext>((options) =>
 });
 
 // Register services
+builder.Services.AddScoped<IAuthUserService, AuthUserService>();
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IClientOptionsService, ClientOptionsService>();
 builder.Services.AddScoped<IMealService, MealService>();
 builder.Services.AddScoped<IProgressService, ProgressService>();
-builder.Services.AddScoped<ISessionService, SessionService>();
 
 // Register repositories
 builder.Services.AddScoped<IActivityLevelRepository, ActivityLevelRepository>();
+builder.Services.AddScoped<IAuthUserRepository, AuthUserRepository>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IGenderRepository, GenderRepository>();
 builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
 builder.Services.AddScoped<IMealRepository, MealRepository>();
 builder.Services.AddScoped<IProgressLogRepository, ProgressLogRepository>();
-builder.Services.AddScoped<ISessionRepository, SessionRepository>();
 
 // Register DB contexts
 builder.Services.AddScoped<IBulksterDbContext, BulksterDbContext>();

@@ -4,9 +4,11 @@ namespace Bulkster_API.Repositories.Interfaces;
 
 public interface IClientRepository
 {
-    public Task<int> InsertClientAsync(Client client);
+    Task<int> InsertClientAsync(Client client);
 
-    public Task<Client?> GetClientAsync(Guid clientId);
+    Task<Client?> GetClientByIdAsync(Guid clientId);
 
-    public Task<int> UpdateClientAsync(Client client);
+    Task<Client?> GetClientByAuthUserIdAsync(string authUserId);
+
+    Task<int> UpdateClientAsync(Client client);
 }

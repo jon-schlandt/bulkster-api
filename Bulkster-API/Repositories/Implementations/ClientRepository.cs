@@ -29,9 +29,15 @@ public class ClientRepository : IClientRepository
     
     #region Read
 
-    public async Task<Client?> GetClientAsync(Guid clientId)
+    public async Task<Client?> GetClientByIdAsync(Guid clientId)
     {
         ClientEntity? entity = await _dbContext.Client.FirstOrDefaultAsync(c => c.ClientId == clientId);
+        return entity != null ? new Client(entity) : null;
+    }
+
+    public async Task<Client?> GetClientByAuthUserIdAsync(string authUserId)
+    {
+        ClientEntity? entity = await _dbContext.Client.FirstOrDefaultAsync(c => c.AuthUserId == authUserId);
         return entity != null ? new Client(entity) : null;
     }
     
